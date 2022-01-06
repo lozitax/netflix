@@ -68,18 +68,21 @@
       </div>
     </div>
 
-  <Header/>
+  <Header x-show="!show"/>
+  <Content x-show="!show"/>
 
   </div>
 </template>
 
 <script>
 import Header from "./components/Header.vue";
+import Content from "./components/Content.vue";
 
 export default {
   name: "App",
   components: {
     Header,
+    Content,
   },
 };
 </script>

@@ -1,5 +1,5 @@
 <template>
-    <div class="flex justify-between items-center bg-black px-14 h-20">
+    <div id="header" class="flex justify-between items-center bg-transparent px-14 h-20 sticky top-0 z-10 transition-all duration-500">
         <div class="flex justify-between gap-12">
             <img class="h-14" src="https://logos-marques.com/wp-content/uploads/2021/03/Netflix-logo.png" alt="">
             <div class="flex items-center gap-4">
@@ -26,4 +26,18 @@
 export default {
   name: 'Header',
 }
+
+let scrollpos = window.scrollY
+
+window.addEventListener('scroll', function() {
+    scrollpos = window.scrollY;
+    let header = document.querySelector("#header");
+    if (scrollpos > 0 && header.classList.contains('bg-transparent')) {
+        header.classList.add('bg-black');
+        header.classList.remove('bg-transparent');
+    } else if (scrollpos == 0) {
+        header.classList.add('bg-transparent');
+        header.classList.remove('bg-black');
+    }
+})
 </script>
