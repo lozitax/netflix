@@ -109,12 +109,18 @@
       <div class="flex flex-col gap-4">
         <p class="text-3xl text-white font-medium">20 Meilleurs films</p>
         <div class="flex gap-2 overflow-x-scroll">
-          <img
-            v-for="item in movies.slice(0, 20)"
-            :key="item.id"
-            :src="item.image"
-            class="w-40 rounded-md border-2 border-transparent hover:bg-white"
-          />
+          <div v-for="item in movies.slice(0, 20)" :key="item.id">
+            <button
+              type="button"
+              class="w-20 h-28 absolute"
+              @click="showModal(item.id)"
+            ></button>
+            <Modal :id="'modal'+item.id" v-show="openedModal == item.id" @close="openedModal = null" :title="item.title"/>
+            <img
+              :src="item.image"
+              class="w-40 rounded-md border-2 border-transparent hover:bg-white"
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -122,8 +128,26 @@
 </template>
 
 <script>
+import Modal from "./Modal.vue";
+
 export default {
   name: "Content",
+  components: {
+    Modal,
+  },
+  data() {
+    return {
+      openedModal: null,
+    };
+  },
+  methods: {
+    showModal(id) {
+      this.openedModal = id;
+    },
+    close() {
+      this.openedModal = null
+    }
+  },
   props: ["movies"],
 };
 </script>
