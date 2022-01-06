@@ -1,6 +1,7 @@
 <template>
   <div x-data="{ show: true }">
-    <div x-show="show"
+    <div
+      x-show="show"
       class="
         bg-black
         h-screen
@@ -13,7 +14,10 @@
     >
       <p class="text-white text-7xl">Qui est-ce ?</p>
       <div class="flex justify-beetween gap-12 mt-6">
-        <div class="flex flex-col items-center gap-2 group" x-on:click="show = ! show">
+        <div
+          class="flex flex-col items-center gap-2 group"
+          x-on:click="show = ! show"
+        >
           <img
             class="
               rounded-lg
@@ -26,7 +30,10 @@
           />
           <p class="text-gray-500 text-2xl group-hover:text-white">Pierre</p>
         </div>
-        <div class="flex flex-col items-center gap-2 group" x-on:click="show = ! show">
+        <div
+          class="flex flex-col items-center gap-2 group"
+          x-on:click="show = ! show"
+        >
           <img
             class="
               rounded-lg
@@ -39,7 +46,10 @@
           />
           <p class="text-gray-500 text-2xl group-hover:text-white">Maxime</p>
         </div>
-        <div class="flex flex-col items-center gap-2 group" x-on:click="show = ! show">
+        <div
+          class="flex flex-col items-center gap-2 group"
+          x-on:click="show = ! show"
+        >
           <img
             class="
               rounded-lg
@@ -52,7 +62,10 @@
           />
           <p class="text-gray-500 text-2xl group-hover:text-white">Thibaud</p>
         </div>
-        <div class="flex flex-col items-center gap-2 group" x-on:click="show = ! show">
+        <div
+          class="flex flex-col items-center gap-2 group"
+          x-on:click="show = ! show"
+        >
           <img
             class="
               rounded-lg
@@ -68,9 +81,8 @@
       </div>
     </div>
 
-  <Header x-show="!show"/>
-  <Content x-show="!show"/>
-
+    <Header x-show="!show" />
+    <Content x-show="!show" :movies="movies" />
   </div>
 </template>
 
@@ -83,6 +95,29 @@ export default {
   components: {
     Header,
     Content,
+  },
+  methods: {
+    async getMovieData() {
+      try {
+        let response = await fetch(
+          "https://edu.maxence.space/imdb/topmovies.json"
+        );
+        let movies = await response.json();
+        this.movies = movies.items;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+  },
+
+  data() {
+    return {
+      movies: [],
+    };
+  },
+
+  mounted() {
+    this.getMovieData();
   },
 };
 </script>
