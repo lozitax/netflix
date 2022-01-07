@@ -104,6 +104,7 @@ export default {
         );
         let movies = await response.json();
         this.movies = movies.items;
+        console.log(movies.items);
       } catch (error) {
         console.log(error);
       }

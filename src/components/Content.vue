@@ -105,20 +105,28 @@
         </div>
       </div>
     </div>
-    <div class="px-16 relative -top-28">
+    <div class="px-16 relative -top-28 overflow-hidden">
       <div class="flex flex-col gap-4">
         <p class="text-3xl text-white font-medium">20 Meilleurs films</p>
         <div class="flex gap-2 overflow-x-scroll">
-          <div v-for="item in movies.slice(0, 20)" :key="item.id">
+          <div v-for="item in movies.slice(0, 20)" :key="item.id" class="w-46 flex-none">
             <button
               type="button"
               class="w-20 h-28 absolute"
               @click="showModal(item.id)"
             ></button>
-            <Modal :id="'modal'+item.id" v-show="openedModal == item.id" @close="openedModal = null" :title="item.title"/>
+            <Modal
+              :id="'modal' + item.id"
+              v-show="openedModal == item.id"
+              @close="openedModal = null"
+              :title="item.title"
+              :rating="item.imDbRating"
+              :image="item.image"
+              :crew="item.crew"
+            />
             <img
               :src="item.image"
-              class="w-40 rounded-md border-2 border-transparent hover:bg-white"
+              class="rounded-md border-2 border-transparent hover:bg-white"
             />
           </div>
         </div>
@@ -145,8 +153,8 @@ export default {
       this.openedModal = id;
     },
     close() {
-      this.openedModal = null
-    }
+      this.openedModal = null;
+    },
   },
   props: ["movies"],
 };
